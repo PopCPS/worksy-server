@@ -1,0 +1,46 @@
+{
+  "name": "worksy-server",
+  "version": "1.0.0",
+  "lockfileVersion": 3,
+  "requires": true,
+  "author": "PopCPS",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.ts",
+  "packages": {},
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/node": "^22.5.1",
+    "prisma": "^5.18.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.16.5",
+    "typescript": "^5.5.4"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^9.4.0",
+    "@fastify/cors": "^9.0.1",
+    "@fastify/jwt": "^8.0.1",
+    "@prisma/client": "^5.19.0",
+    "dotenv": "^16.4.5",
+    "esbuild": "^0.23.1",
+    "fastify": "^4.28.1",
+    "fastify-type-provider-zod": "^2.0.0",
+    "get-tsconfig": "^4.8.0",
+    "resolve-pkg-maps": "^1.0.0",
+    "undici-types": "^6.19.8",
+    "zod": "^3.23.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PopCPS/worksy-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PopCPS/worksy-server/issues"
+  },
+  "homepage": "https://github.com/PopCPS/worksy-server#readme",
+  "description": ""
+}
