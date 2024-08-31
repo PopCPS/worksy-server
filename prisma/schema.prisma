@@ -20,15 +20,13 @@ model User {
 }
 
 model Activity {
-  id String @id @default(uuid())
-
+  id        String   @id @default(uuid())
+  user_id   String
   title     String
+  isDone    Boolean @default(false)
   occurs_at DateTime
-  trip_id   String
-  isDone    Boolean
-  isPast    Boolean
 
-  user User @relation(fields: [trip_id], references: [id])
+  user User @relation(fields: [user_id], references: [id])
 
   @@map("activities")
 }
