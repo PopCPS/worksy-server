@@ -18,6 +18,7 @@ import { deleteAgenda } from "./routes/agenda/delete-agenda";
 import { getUser } from "./routes/user/get-user";
 import { deleteUser } from "./routes/user/delete-user";
 import { patchUser } from "./routes/user/patch-user";
+import { ping } from "./routes/auth/ping";
 
 const app = fastify()
 
@@ -38,6 +39,7 @@ app.register(fastifyJwt, {
 app.register(register)
 app.register(login)
 app.register(logout)
+app.register(ping)
 
 app.register(getUser)
 app.register(deleteUser)
