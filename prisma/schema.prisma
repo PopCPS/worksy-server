@@ -14,19 +14,35 @@ model User {
   password String
   image    String?
 
-  activities Activity[]
+  agenda   Agenda[]
+  Activity Activity[]
 
   @@map("user")
 }
 
-model Activity {
-  id        String   @id @default(uuid())
-  user_id   String
-  title     String
-  isDone    Boolean @default(false)
-  occurs_at DateTime
+model Agenda {
+  id      String @id @default(uuid())
+  user_id String
+  name    String
+
+  activities Activity[]
 
   user User @relation(fields: [user_id], references: [id])
+
+  @@map("agenda")
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  agenda_id String
+  user_id   String
+  title     String
+  date      String
+  is_done   Boolean  @default(false)
+  occurs_at DateTime
+
+  agenda Agenda @relation(fields: [agenda_id], references: [id])
+  user   User   @relation(fields: [user_id], references: [id])
 
   @@map("activities")
 }

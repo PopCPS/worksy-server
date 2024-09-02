@@ -5,27 +5,35 @@ import { prisma } from "../../lib/prisma";
 import z from "zod";
 
 export const getActivity = async (app: FastifyInstance) => {
-  app.withTypeProvider<ZodTypeProvider>().get('/api/activities', {
+  app.withTypeProvider<ZodTypeProvider>().get('/api/activities/:agenda/:date', {
     schema: {
-      body: z.object({
-        occurs_at: z.coerce.date()
+      params: z.object({
+        agenda: z.string(),
+        date: z.string().date()
       })
     }
-  }, 
-    async (request, reply) => {
+  }, async (request, reply) => {
       
       const { id, email } = await request.jwtDecode() as jwtPayload
 
-      const { occurs_at } = request.body
-
-      const activities = prisma.activity.findMany({ 
+      const { date } = request.params
+        
+      const activities = prisma.user.findUnique({ 
         where: {
           id,
-          occurs_at,
-          user: {
-            email
+          email,
+        },
+        select: {
+          agenda: {
+            where: {
+              activities: {
+                 every: {
+                  date
+                 }
+              }
+            }
           }
-        }
+        },
       })
 
       reply.code(200)

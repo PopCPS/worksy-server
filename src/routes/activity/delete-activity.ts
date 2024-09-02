@@ -13,13 +13,12 @@ export const deleteActivity = async (app: FastifyInstance) => {
     }
   }, async (request, reply) => {
 
-    const { id } = await request.jwtDecode() as jwtPayload
+    await request.jwtDecode() as jwtPayload
 
     const { activity_id } = request.body
 
     const activity = prisma.activity.delete({
       where: {
-        user_id: id,
         id: activity_id
       }
     })

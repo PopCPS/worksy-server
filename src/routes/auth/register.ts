@@ -52,6 +52,14 @@ export const register = async (app: FastifyInstance) => {
       }
     })
 
+    await prisma.agenda.createMany({
+      data: [
+        {user_id: user.id, name: 'Pessoal'},
+        {user_id: user.id, name: 'Profissional'},
+      ]
+    })
+
     reply.code(200).send({ message: 'Usuário criado com sucesso' })
+    return
   })
 }
