@@ -17,7 +17,6 @@ export const getAgenda = async (app: FastifyInstance) => {
         id: true,
         name: true,
         user_id: true,
-        activities: true,
       }
     })
 

@@ -26,6 +26,13 @@ export const login = async (app: FastifyInstance) => {
     let user = await prisma.user.findFirst({
       where: {
         email
+      },
+      include: {
+        agenda: {
+          include: {
+            user: false
+          }
+        }
       }
     })
 
@@ -35,7 +42,7 @@ export const login = async (app: FastifyInstance) => {
     }
 
     if(!compareSync(password, user.password)) {
-      reply.code(401).send({ error: 'Senha incorreta' })
+      reply.code(401).send({ error: 'Senha incorreta' })  
     }
 
     const token = await reply.jwtSign({
@@ -47,12 +54,14 @@ export const login = async (app: FastifyInstance) => {
       maxAge: 60 * 60,
       path: '/',
       sameSite: 'none',
-      httpOnly: false,
-      secure: false
+      httpOnly: true,
+      secure: true
     })
 
-    reply.code(200).send({ message: 'Usuário logado com sucesso', token })
-    return token
+    console.log(token)
 
+    return {
+      agendas: user.agenda
+    }
   })
 }

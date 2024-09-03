@@ -11,6 +11,12 @@ export const logout = async (app: FastifyInstance) => {
           maxAge: Date.now()
         })
       }
+      if(reply.getHeader('agenda')) {
+        reply.setCookie('agenda', '', {
+          httpOnly: false,
+          secure: true,
+        })
+      }
     }
   )
 }

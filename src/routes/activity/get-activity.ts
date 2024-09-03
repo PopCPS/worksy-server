@@ -16,28 +16,21 @@ export const getActivity = async (app: FastifyInstance) => {
       
       const { id, email } = await request.jwtDecode() as jwtPayload
 
-      const { date } = request.params
+      const { agenda, date } = request.params
         
-      const activities = prisma.user.findUnique({ 
+      const agendaActivities = prisma.activity.findMany({ 
         where: {
-          id,
-          email,
-        },
-        select: {
-          agenda: {
-            where: {
-              activities: {
-                 every: {
-                  date
-                 }
-              }
-            }
+          agenda_id: agenda,
+          date,
+          user: {
+            email,
+            id
           }
-        },
+        }
       })
 
       reply.code(200)
-      return activities
+      return agendaActivities
 
     }
   )
