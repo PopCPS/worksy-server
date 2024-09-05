@@ -6,7 +6,7 @@
   "author": "PopCPS",
   "keywords": [],
   "license": "ISC",
-  "main": "index.ts",
+  "main": "./src/server.ts",
   "packages": {},
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
