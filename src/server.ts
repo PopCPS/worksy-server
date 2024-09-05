@@ -25,7 +25,7 @@ const host = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
 const app = fastify()
 
 app.register(cors, {
-  origin: true,
+  origin: false,
   credentials: true,
 })
 
