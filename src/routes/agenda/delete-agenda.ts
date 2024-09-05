@@ -2,18 +2,19 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
 import { prisma } from "../../lib/prisma";
+import { jwtPayload } from "../../lib/interfaces/jwtPayload";
 
 export const deleteAgenda = async (app: FastifyInstance) => {
-  app.withTypeProvider<ZodTypeProvider>().delete('/api/agenda', {
+  app.withTypeProvider<ZodTypeProvider>().delete('/api/agenda/:agendaId', {
     schema: {
-      body: z.object({
+      params: z.object({
         agendaId: z.string().uuid()
       })
     }
   }, async (request, reply) => {
 
-    await request.jwtVerify()
-    const { agendaId } = await request.body
+    const { id, email } = await request.jwtVerify() as jwtPayload
+    const { agendaId } = await request.params
 
     if(!agendaId) {
       reply.code(400).send({ error: 'Dados incompletos.' })
@@ -42,6 +43,15 @@ export const deleteAgenda = async (app: FastifyInstance) => {
       }
     })
 
-    reply.code(200).send('Agenda deletada com sucesso.')
+    const agendas = await prisma.agenda.findMany({
+      where: {
+        user: {
+          id,
+          email,
+        },
+      }
+    })
+
+    reply.code(200).send(agendas)
   })
 }

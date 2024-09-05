@@ -5,9 +5,9 @@ import { jwtPayload } from "../../lib/interfaces/jwtPayload";
 import { prisma } from "../../lib/prisma";
 
 export const deleteActivity = async (app: FastifyInstance) => {
-  app.withTypeProvider<ZodTypeProvider>().delete('/api/activities', {
+  app.withTypeProvider<ZodTypeProvider>().delete('/api/activities/:activity_id', {
     schema: {
-      body: z.object({
+      params: z.object({
         activity_id: z.string().uuid()
       })
     }
@@ -15,7 +15,7 @@ export const deleteActivity = async (app: FastifyInstance) => {
 
     await request.jwtDecode() as jwtPayload
 
-    const { activity_id } = request.body
+    const { activity_id } = request.params
 
     const activity = prisma.activity.delete({
       where: {

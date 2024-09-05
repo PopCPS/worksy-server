@@ -40,7 +40,6 @@ export const postAgenda = async (app: FastifyInstance) => {
       }
     })
 
-    reply.code(200).send('Agenda criada com sucesso.')
-    return
+    reply.code(200).send(agenda.id)
   })
 }

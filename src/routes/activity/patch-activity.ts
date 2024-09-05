@@ -10,7 +10,7 @@ export const patchActivity = async (app: FastifyInstance) => {
       body: z.object({
         activity_id: z.string(),
         title: z.string().optional(),
-        is_done: z.boolean().optional(),
+        is_done: z.boolean(),
         date: z.string().date().optional(),
         occurs_at: z.coerce.date().optional()
       })
@@ -46,7 +46,7 @@ export const patchActivity = async (app: FastifyInstance) => {
         title: title || activity.title,
         date: date || activity.date,
         occurs_at: occurs_at || activity.occurs_at,
-        is_done: is_done || activity.is_done,
+        is_done: is_done,
       }
     })
 
