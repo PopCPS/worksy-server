@@ -60,6 +60,5 @@ export const register = async (app: FastifyInstance) => {
     })
 
     reply.code(200).send({ message: 'Usuário criado com sucesso' })
-    return
   })
 }

@@ -2,7 +2,7 @@ import fastify from "fastify";
 import cors from "@fastify/cors"
 import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 import fastifyCookie from "@fastify/cookie";
-import { JWT_SECRET } from "./lib/secrets";
+import { CORS_ORIGIN, JWT_SECRET } from "./lib/secrets";
 import fastifyJwt from "@fastify/jwt";
 import { register } from "./routes/auth/register";
 import { login } from "./routes/auth/login";
@@ -25,7 +25,7 @@ const host = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
 const app = fastify()
 
 app.register(cors, {
-  origin: false,
+  origin: CORS_ORIGIN,
   credentials: true,
 })
 

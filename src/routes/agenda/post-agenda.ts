@@ -40,6 +40,17 @@ export const postAgenda = async (app: FastifyInstance) => {
       }
     })
 
-    reply.code(200).send(agenda.id)
+    const agendas = await prisma.agenda.findMany({
+      where: {
+        user_id: id
+      },
+      select: {
+        id: true,
+        name: true,
+        user_id: true,
+      }
+    })
+
+    reply.code(200).send({ id: agenda.id, agendas })
   })
 }
