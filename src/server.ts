@@ -20,6 +20,8 @@ import { deleteUser } from "./routes/user/delete-user";
 import { patchUser } from "./routes/user/patch-user";
 import { ping } from "./routes/auth/ping";
 
+const host = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
+
 const app = fastify()
 
 app.register(cors, {
@@ -58,6 +60,6 @@ app.register(patchActivity)
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
 
-app.listen({ port: 3333 }).then(() => {
-  console.log('Server running!')
+app.listen({ port: 3333, host: host }).then((s) => {
+  console.log(`Server running on ${s}!`)
 })
